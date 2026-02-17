@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v uuidgen >/dev/null 2>&1; then
+	uuidgen | tr '[:upper:]' '[:lower:]' | tr -d '\n'
+else
+	python3 -c 'import uuid; print(uuid.uuid4(), end="")'
+fi

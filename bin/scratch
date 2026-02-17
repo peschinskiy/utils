@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+file="$(mktemp --suffix=.txt)"
+echo "Editing $file"
+exec "$EDITOR" "$file"

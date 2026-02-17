@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v gio >/dev/null 2>&1; then
+	gio trash "$@"
+elif command -v trash-put >/dev/null 2>&1; then
+	trash-put "$@"
+else
+	echo 'cannot find a trash program; install gio (glib2) or trash-cli' >&2
+	exit 1
+fi

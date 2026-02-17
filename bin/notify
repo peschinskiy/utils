@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+title="${1:-Notification}"
+description="${2:-}"
+
+if command -v notify-send >/dev/null 2>&1; then
+	notify-send --expire-time=5000 "$title" "$description"
+else
+	echo "cannot send notifications" >&2
+	exit 1
+fi

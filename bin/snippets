@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+snippets_path="$XDG_CONFIG_HOME/snippets"
+
+if [ $# -ne 1 ]; then
+	ls "$snippets_path"
+else
+	if [[ "$1" == *".."* ]]; then
+		echo 'invalid snippet name' >&2
+		exit 1
+	fi
+
+	path="$snippets_path/$1"
+	cat "$path" 2>/dev/null || { echo "no snippet found at $path" >&2; exit 1; }
+fi
