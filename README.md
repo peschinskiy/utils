@@ -1,6 +1,6 @@
 # utils
 
-Personal shell utilities. Scripts live in `bin/`, Fish shell functions in `fish/`.
+Personal shell utilities and fish aliases. Scripts live in `bin/`, Fish shell functions in `fish/functions`.
 
 Inspired by [Evan Hahn's approach](https://evanhahn.com/scripts-i-wrote-that-i-use-all-the-time/): prefer scripts in `~/.local/bin` over aliases — no shell reload needed, any language, works across all shells.
 
@@ -8,9 +8,14 @@ Inspired by [Evan Hahn's approach](https://evanhahn.com/scripts-i-wrote-that-i-u
 
 ```sh
 ./install.sh
+source ~/.config/fish/aliases.fish
+# check aliases available
+alias
+# check utils available
+utils
 ```
 
-Symlinks everything into `~/.local/bin` (scripts) and `~/.config/fish/functions` (fish functions).
+Symlinks everything into `~/.local/bin` (scripts) and `~/.config/fish` (fish functions and aliases).
 
 ## Scripts
 
