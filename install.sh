@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
-shopt -s globstar
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 BIN_TARGET="${HOME}/.local/bin"
 FISH_TARGET="${HOME}/.config/fish"
-FISH_FUNCTIONS_TARGET="${HOME}/.config/fish/functions"
 
 link() {
 	local src="$1"
@@ -22,9 +20,11 @@ for script in "$REPO_DIR/bin/"*; do
 done
 
 echo "Installing fish functions -> $FISH_TARGET"
-mkdir -p "$FISH_FUNCTIONS_TARGET"
-for func in "$REPO_DIR/fish/"**/*.fish; do
-	link "$func" "$FISH_TARGET/$(basename "$func")"
-done
+while IFS= read -r -d '' func; do
+    relative_path="${func#$REPO_DIR/fish/}"
+    target_file="$FISH_TARGET/$relative_path"
+    mkdir -p "$(dirname "$target_file")"
+    link "$func" "$target_file"
+done < <(find "$REPO_DIR/fish/" -type f -name "*.fish" -print0)
 
 echo "Done."

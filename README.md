@@ -8,7 +8,9 @@ Inspired by [Evan Hahn's approach](https://evanhahn.com/scripts-i-wrote-that-i-u
 
 ```sh
 ./install.sh
-source ~/.config/fish/aliases.fish
+
+# add `source ~/.config/fish/aliases.fish &>/dev/null` to ~/.config/fish/config.fish
+
 # check aliases available
 alias
 # check utils available
