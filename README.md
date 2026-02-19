@@ -6,6 +6,8 @@ Inspired by [Evan Hahn's approach](https://evanhahn.com/scripts-i-wrote-that-i-u
 
 ## Install
 
+If not added, add ~/.local/bin to PATH. Then:
+
 ```sh
 ./install.sh
 
