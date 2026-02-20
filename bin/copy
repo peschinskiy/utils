@@ -1,13 +1,36 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Function to copy using OSC 52 escape sequence
+osc52_copy() {
+    local data
+    data=$(cat)
+    # Remove trailing newline if present
+    data=$(printf '%s' "$data" | perl -pe 'chomp if eof')
+    
+    # Encode to base64
+    local encoded
+    encoded=$(printf '%s' "$data" | base64 | tr -d '\n')
+    
+    # Send OSC 52 sequence
+    # Works in most modern terminals (iTerm2, tmux, kitty, alacritty, etc.)
+    printf '\033]52;c;%s\a' "$encoded"
+}
+
 if command -v clip.exe >/dev/null 2>&1 && grep -qi microsoft /proc/version 2>/dev/null; then
-	perl -pe 'chomp if eof' | clip.exe
-elif command -v xclip >/dev/null 2>&1; then
-	perl -pe 'chomp if eof' | xclip -selection clipboard
+    # WSL: Use Windows clipboard
+    perl -pe 'chomp if eof' | clip.exe
 elif command -v wl-copy >/dev/null 2>&1; then
-	perl -pe 'chomp if eof' | wl-copy
+    # Wayland: Use wl-clipboard
+    perl -pe 'chomp if eof' | wl-copy
+elif command -v pbcopy >/dev/null 2>&1; then
+    # macOS: Use pbcopy
+    perl -pe 'chomp if eof' | pbcopy
+elif [ -n "${TMUX:-}" ]; then
+    # Inside tmux: Use tmux's clipboard (which supports OSC 52)
+    perl -pe 'chomp if eof' | tmux load-buffer -
 else
-	echo 'cannot find a copy program' >&2
-	exit 1
+    # Fallback: Use OSC 52 (works over SSH and in most modern terminals)
+    osc52_copy
 fi
+
