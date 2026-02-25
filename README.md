@@ -62,6 +62,6 @@ Requires `pytest` (`pip install pytest` or via `uv`).
 
 ## Notes
 
-- Clipboard (`copy`/`pasta`/`pastas`/`cpwd`) uses `clip.exe`/PowerShell on WSL2, with fallbacks for `xclip` and `wl-clipboard` on native Linux.
+- Clipboard (`copy`/`pasta`/`pastas`/`cpwd`) auto-detects the environment: `clip.exe` on WSL2, `pbcopy`/`pbpaste` on macOS, `wl-copy`/`wl-paste` on Wayland, `xclip`/`xsel` on X11, PowerShell `Get-Clipboard` on native Windows, tmux buffer inside tmux, and OSC 52 escape sequence as a last resort (works over SSH in modern terminals).
 - `snippets` reads from `~/.config/snippets/`. Create that directory and add plain text files as snippets.
 - `timer` uses GNU `sleep` duration syntax: `30s`, `10m`, `1h`, `1h30m`.
