@@ -30,6 +30,7 @@ Symlinks everything into `~/.local/bin` (scripts) and `~/.config/fish` (fish fun
 | `copy` | Pipe stdin to clipboard |
 | `cpwd` | Copy current directory path to clipboard |
 | `getsubs` | Extract English subtitles from a video URL (requires `yt-dlp`) |
+| `hey` | HTTP load tester — send traffic and benchmark response times |
 | `httpstatus` | List HTTP status codes; optionally filter by code or phrase |
 | `ipy` | Python 3 REPL |
 | `isql` | SQLite in-memory REPL |
