@@ -1,25 +1,32 @@
-# utils
+# dotfiles
 
-Personal shell utilities and fish aliases. Scripts live in `bin/`, Fish shell functions in `fish/functions`.
+Personal dotfiles managed with [GNU stow](https://www.gnu.org/software/stow/).
 
-Inspired by [Evan Hahn's approach](https://evanhahn.com/scripts-i-wrote-that-i-use-all-the-time/): prefer scripts in `~/.local/bin` over aliases — no shell reload needed, any language, works across all shells.
+## Structure
+
+Each top-level directory is a stow package that mirrors the home directory layout:
+
+| Package | Contents | Target |
+|---|---|---|
+| `bin/` | Shell scripts | `~/bin/` |
+| `fish/` | Fish shell config, functions, aliases | `~/.config/fish/` |
 
 ## Install
 
-If not added, add ~/.local/bin to PATH. Then:
-
 ```sh
-./install.sh
+# From the repo root, stow any package into $HOME
+stow -t $HOME bin
+stow -t $HOME fish
 
-# add `source ~/.config/fish/aliases.fish &>/dev/null` to ~/.config/fish/config.fish
-
-# check aliases available
-alias
-# check utils available
-utils
+# Or stow everything at once
+stow -t $HOME */
 ```
 
-Symlinks everything into `~/.local/bin` (scripts) and `~/.config/fish` (fish functions and aliases).
+Make sure `~/bin` is on your `PATH` and aliases are sourced. Add to `~/.config/fish/config.fish`:
+```fish
+fish_add_path ~/bin
+source ~/.config/fish/aliases.fish
+```
 
 ## Scripts
 
@@ -51,14 +58,6 @@ Symlinks everything into `~/.local/bin` (scripts) and `~/.config/fish` (fish fun
 | `utils` | List all available utils with descriptions |
 | `uuid` | Generate a v4 UUID |
 | `ymd` | Print today's date as `YYYY-MM-DD` |
-
-## Tests
-
-```sh
-cd tests && pytest
-```
-
-Requires `pytest` (`pip install pytest` or via `uv`).
 
 ## Notes
 

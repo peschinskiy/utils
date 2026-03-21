@@ -1,7 +1,12 @@
 # Claude Code Guidelines
 
+## Repo structure
+
+This is a dotfiles repo managed with [GNU stow](https://www.gnu.org/software/stow/). Each top-level directory is a stow package that mirrors the home directory layout:
+
+- `bin/` — scripts; `bin/bin/` maps to `~/bin/`
+- `fish/` — Fish shell config; `fish/.config/fish/` maps to `~/.config/fish/`
+
 ## After any changes
 
-- **Keep README, repo, and `utils` in sync**: The Scripts table in `README.md`, the actual files in `bin/` and `fish/`, and the entries printed by the `utils` script must always match. Add, remove, or update all three together.
-- **Run tests**: After modifying any script, run `cd tests && pytest` to verify nothing is broken.
-- **Update tests**: If you add or meaningfully change a script, add or update the corresponding tests in `tests/`.
+- **Keep README and `utils` in sync**: The Scripts table in `README.md` and the entries printed by the `utils` script must always match. Add, remove, or update both together.
